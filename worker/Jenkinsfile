@@ -1,4 +1,4 @@
-pipeline {
+pipeline{
     agent any
 
     tools{
@@ -28,14 +28,17 @@ pipeline {
                 changeset "**/worker/**"
             }
             steps {
-                echo 'step 3'
-                sleep 9
+                echo 'Packaging worker app'
+                dir('worker'){
+                    sh 'mvn package -DskipTests'
+                }
             }
         }
     }
     post{
         always{
-            echo 'This pipeline is completed'
+            archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+            echo 'Worker multibranch pipeline completed'
         }
         failure{
             slackSend (message: "Build failed: ${env.JOB_NAME} ${BUILD_NUMBER}")

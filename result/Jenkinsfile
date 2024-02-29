@@ -20,7 +20,7 @@ pipeline{
             when { changeset "**/result/**" }
             steps {
                 echo 'Running unit tests on result app'
-                dir('worker'){
+                dir('result'){
                     sh 'npm install'
                     sh 'npm test'
                 }

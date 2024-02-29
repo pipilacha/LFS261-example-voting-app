@@ -22,11 +22,7 @@ pipeline{
                 }
             }
         }
-        stage('package') {
-            when{
-                branch 'master'
-                changeset "**/worker/**"
-            }
+        stage('package') {            
             steps {
                 echo 'Packaging worker app'
                 dir('worker'){

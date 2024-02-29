@@ -4,19 +4,21 @@ pipeline {
     stages {
         stage('one') {
             steps {
-                echo 'step 1'
-                sleep 5
+                echo 'step 1 stage 1'
             }
         }
         stage('two') {
             steps {
-                echo 'step 2'
-                sleep 3
+                echo 'step 1 stage 2'
             }
         }
-        stage('three') {
+        stage('package') {
+            when{
+                branch 'master'
+                changeset "**/worker/**"
+            }
             steps {
-                echo 'step 3'
+                eecho 'step 1 stage 3'
                 sleep 9
             }
         }
@@ -24,6 +26,12 @@ pipeline {
     post{
         always{
             echo 'This pipeline is completed'
+        }
+        failure{
+            slackSend (message: "Build failed: ${env.JOB_NAME} ${BUILD_NUMBER}")
+        }
+        success{
+            slackSend (message: "Build sucess: ${env.JOB_NAME} ${BUILD_NUMBER}")
         }
     }
 }

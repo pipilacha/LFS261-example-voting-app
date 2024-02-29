@@ -1,0 +1,42 @@
+
+pipeline{
+    agent any
+
+    tools{
+        nodejs 'node 19.0.1'
+    }
+
+    stages {
+        stage('build') {
+            when { changeset "**/result/**" }
+            steps {
+                echo 'Building node app'
+                dir('result'){
+                    sh 'npm install'
+                    sh 'npm ls'
+                }
+            }
+        }
+        stage('test') {
+            when { changeset "**/result/**" }
+            steps {
+                echo 'Running unit tests on result app'
+                dir('result'){
+                    sh 'npm install'
+                    sh 'npm test'
+                }
+            }
+        }
+    }
+    post{
+        always{            
+            echo 'Result multibranch pipeline completed'
+        }
+        failure{
+            slackSend (message: "Build failed: ${env.JOB_NAME} ${BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
+        }
+        success{
+            slackSend (message: "Build sucess: ${env.JOB_NAME} ${BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
+        }
+    }
+}

@@ -32,7 +32,7 @@ pipeline {
         failure{
             slackSend (message: "Build failed: ${env.JOB_NAME} ${JOB_NUMBER}")
         }
-        sucess{
+        success{
             slackSend (message: "Build sucess: ${env.JOB_NAME} ${JOB_NUMBER}")
         }
     }

@@ -43,10 +43,10 @@ pipeline{
             echo 'Worker multibranch pipeline completed'
         }
         failure{
-            slackSend (message: "Build failed: ${env.JOB_NAME} ${BUILD_NUMBER}")
+            slackSend (message: "Build failed: ${env.JOB_NAME} ${BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
         }
         success{
-            slackSend (message: "Build sucess: ${env.JOB_NAME} ${BUILD_NUMBER}")
+            slackSend (message: "Build sucess: ${env.JOB_NAME} ${BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
         }
     }
 }

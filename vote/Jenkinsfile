@@ -13,8 +13,8 @@ pipeline {
             steps{
                 echo 'Building vote app'
                 dir('vote'){
-                    sh 'id'
-                    sh 'pip install --user -r requirements.txt'
+                    sh 'whoami'
+                    sh 'pip install -r requirements.txt'
                     sh 'nosetests tests.module'
                 }
             }

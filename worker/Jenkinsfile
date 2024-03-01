@@ -55,6 +55,10 @@ pipeline{
             }
         }
         stage('docker-package') {
+            when { 
+                changeset "**/worker/**"
+                branch 'master'
+            }
             agent any
             steps {
                 echo 'Packaging worker app with docker'

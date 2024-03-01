@@ -12,8 +12,8 @@ pipeline {
             }
             steps{
                 echo 'Building vote app'
-                sh 'python3 --version'
-                sh 'which python3'
+                sh 'python --version'
+                sh 'which python'
             }
         }
     }

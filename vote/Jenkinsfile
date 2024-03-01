@@ -14,8 +14,7 @@ pipeline {
             steps{
                 echo 'Building vote app'
                 dir('vote'){
-                    sh 'pip install -r requirements.txt'
-                    sh 'flask --app app run'
+                    sh ''' \n pip install -r requirements \n flask --app app run'''
                 }
             }
         }

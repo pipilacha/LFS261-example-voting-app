@@ -1,0 +1,50 @@
+pipeline {
+    agent none
+    stages{
+        stage('build'){
+            when {
+                changeset '**/vote/**'
+            }
+            agent {
+                docker {
+                    image 'eeganlf/voteapp-python:v0.1.0'
+                }
+            }
+            steps{
+                echo 'Building vote app'
+
+            }
+        }
+        stage('test'){
+            when {
+                changeset '**/vote/**'
+            }
+            agent {
+                docker {
+                    image 'eeganlf/voteapp-python:v0.1.0'
+                }
+            }
+            steps{
+                echo 'Building vote app'
+
+            }
+        }
+        stage('docker-package') {
+            when { 
+                changeset "**/worker/**"
+                branch 'master'
+            }
+            agent any
+            steps {
+                echo 'Packaging vote app with docker'
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/','dockerlogin') {
+                        def workerImage = docker.build ("${env.GIT_URL.tokenize('/.')[-3]}/worker:v${env.BUILD_ID}", './worker')
+                        workerImage.push()
+                        workerImage.push('latest')
+                    }
+                }
+            }
+        }
+    }
+}

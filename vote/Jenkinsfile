@@ -12,8 +12,10 @@ pipeline {
             }
             steps{
                 echo 'Building vote app'
-                sh 'python --version'
-                sh 'which python'
+                dir('vote'){
+                    sh 'pip install -r requirements.txt'
+                    sh 'nosetests tests.module'
+                }
             }
         }
     }

@@ -4,8 +4,8 @@ WORKDIR /app
 
 COPY . . 
 
-RUN npm install  && \ 
-    npm audit fix 
+RUN npm install  && \
+npm audit fix --force
     
 EXPOSE 4000
 

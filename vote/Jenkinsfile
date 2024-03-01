@@ -8,12 +8,12 @@ pipeline {
             agent {
                 docker {
                     image 'python:2.7-alpine'
+                    args '-u root --priviledged'
                 }
             }
             steps{
                 echo 'Building vote app'
                 dir('vote'){
-                    sh 'whoami'
                     sh 'pip install -r requirements.txt'
                     sh 'nosetests tests.module'
                 }

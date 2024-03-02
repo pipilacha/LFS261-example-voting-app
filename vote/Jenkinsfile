@@ -45,6 +45,7 @@ pipeline {
             when {
                 changeset '**/vote/**'
             }
+            agent any
             steps {
                 echo 'Packaging vote app with docker'
                 script {

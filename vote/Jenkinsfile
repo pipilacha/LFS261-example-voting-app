@@ -19,7 +19,6 @@ pipeline {
         //             \n pip install -r requirements.txt
         //             \n export FLASK_APP=app.py
         //             \n flask run
-
         //             '''
         //         }
         //     }

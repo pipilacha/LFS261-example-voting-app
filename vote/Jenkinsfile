@@ -43,6 +43,9 @@ pipeline {
             }
         }
         stage('docker-package') {
+            when {
+                changeset '**/vote/**'
+            }
             steps {
                 echo 'Packaging vote app with docker'
                 script {

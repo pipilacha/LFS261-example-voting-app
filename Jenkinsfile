@@ -153,6 +153,16 @@ pipeline{
                 }
             }
         }
+        stage('deploy-instavote-to-dev') {
+            agent any
+            when {
+                branch 'master'
+            }
+            steps {
+                echo 'Deploying instavote with docker compose'
+                sh 'docker-compose up -d'
+            }
+        }
     }
     post{
         always{            

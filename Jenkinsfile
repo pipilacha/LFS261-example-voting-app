@@ -158,7 +158,7 @@ pipeline{
             when {
                 branch 'master'
             }
-            envinronment {
+            environment {
                 sonarpath = tool 'SonnarScanner'
             }
             steps {

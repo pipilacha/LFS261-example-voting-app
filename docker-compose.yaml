@@ -24,6 +24,8 @@ services:
       - db
     networks:
       - voting-app
+    environment:
+      - DB_PASS='muchalucha'
   worker:
     image: pipilacha/worker:latest
     depends_on:
@@ -31,6 +33,8 @@ services:
       - db
     networks:
       - voting-app
+    environment:
+      - DB_PASS='muchalucha'
   redis:
     image: redis:alpine
     networks:
@@ -41,3 +45,5 @@ services:
       - "db-data:/var/lib/postgresql/data"
     networks:
       - voting-app
+    environment:
+      - POSTGRES_PASSWORD='muchalucha'

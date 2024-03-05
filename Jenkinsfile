@@ -161,11 +161,12 @@ pipeline{
             //     sonarpath = tool 'SonarScanner' //sonar installation
             // }
             def scannerHome = tool 'SonarScanner';//sonar installation
-            steps {
+            withSonarQubeEnv('sonar-insta-vote'){ //global sonar server config
                 echo 'Running Sonarqube Analysis'
-                withSonarQubeEnv('sonar-insta-vote'){ //global soncar server config
-                    sh "${scannerHome}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
-                }
+                sh "${scannerHome}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
+            }
+                
+                
             }
         }
         stage("Quality Gate") {

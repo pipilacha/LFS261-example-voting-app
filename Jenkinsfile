@@ -157,11 +157,12 @@ pipeline{
             when {
                 branch 'master'
             }
-            environment {
-                sonarpath = tool 'SonarScanner' //sonar installation
-            }
+            // environment {
+            //     sonarpath = tool 'SonarScanner' //sonar installation
+            // }
             steps {
                 echo 'Running Sonarqube Analysis'
+                def scannerHome = tool 'SonarScanner' //sonar installation
                 withSonarQubeEnv('sonar-insta-vote'){ //global soncar server config
                     sh "${sonarpath}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
                 }

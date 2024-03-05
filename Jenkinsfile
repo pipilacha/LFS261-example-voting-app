@@ -88,6 +88,26 @@ pipeline{
                 }
             }
         }
+        stage('vote-integration-tests') {
+            when {
+                changeset '**/vote/**'
+            }
+            when {
+                changeset '**/vote/**'
+            }
+            agent {
+                docker {
+                    image 'python:2.7-alpine'
+                    args '-u root --privileged'
+                }
+            }
+            steps{
+                echo 'Running integration tests on vote'
+                dir('vote'){
+                    sh 'sh integration_test.sh'
+                }
+            }
+        }
         stage('vote-docker-package') {
             when {
                 changeset '**/vote/**'

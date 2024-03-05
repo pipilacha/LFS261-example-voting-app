@@ -3,7 +3,6 @@ pipeline{
     // tools{
     //     maven 'maven 3.6.1'
     // }
-
     stages {
         stage('worker-build') {
             when { changeset "**/worker/**" }
@@ -150,6 +149,32 @@ pipeline{
                         workerImage.push()
                         workerImage.push('latest')
                     }
+                }
+            }
+        }
+        stage('Sonarqube') {
+            agent any
+            // when {
+            //     branch 'master'
+            // }
+            environment {
+                sonarpath = tool 'SonarScanner' //sonar installation
+            }
+            steps {
+                echo 'Running Sonarqube Analysis'
+                withSonarQubeEnv('sonar-pipilacha'){ //global sonar server config
+                    sh "${sonarpath}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
+                }
+            }
+        }
+        stage("Quality Gate") {
+            agent any
+            steps {
+                echo 'Waiting for Quality Gate!'
+                timeout(time: 1, unit: 'HOURS') {
+                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                    // true = set pipeline to UNSTABLE, false = don't
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }

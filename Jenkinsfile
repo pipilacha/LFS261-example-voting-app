@@ -158,11 +158,11 @@ pipeline{
                 branch 'master'
             }
             environment {
-                sonarpath = tool 'SonnarScanner'
+                sonarpath = tool 'SonarScanner'
             }
             steps {
                 echo 'Running Sonarqube Analysis'
-                withSonarQubeEnv('sonar-insta-vote'){
+                withSonarQubeEnv('SonarScanner'){
                     sh "${sonarpath}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
                 }
             }

@@ -165,9 +165,6 @@ pipeline{
                 echo 'Running Sonarqube Analysis'
                 sh "${scannerHome}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
             }
-                
-                
-            }
         }
         stage("Quality Gate") {
             steps {

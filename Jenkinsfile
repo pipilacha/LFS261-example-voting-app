@@ -157,13 +157,12 @@ pipeline{
             when {
                 branch 'master'
             }
-            // environment {
-            //     sonarpath = tool 'SonarScanner' //sonar installation
-            // }
-            def scannerHome = tool 'SonarScanner';//sonar installation
+            environment {
+                sonarpath = tool 'SonarScanner' //sonar installation
+            }
             withSonarQubeEnv('sonar-insta-vote'){ //global sonar server config
                 echo 'Running Sonarqube Analysis'
-                sh "${scannerHome}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
+                sh "${sonarpath}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
             }
         }
         stage("Quality Gate") {

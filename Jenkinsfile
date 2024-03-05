@@ -92,9 +92,6 @@ pipeline{
             when {
                 changeset '**/vote/**'
             }
-            when {
-                changeset '**/vote/**'
-            }
             agent {
                 docker {
                     image 'python:2.7-alpine'

@@ -153,7 +153,7 @@ pipeline{
             }
         }
         stage('Sonarqube') {
-            // agent any
+            agent any
             // when {
             //     branch 'master'
             // }

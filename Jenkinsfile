@@ -162,7 +162,7 @@ pipeline{
             }
             steps {
                 echo 'Running Sonarqube Analysis'
-                withSonarQubeEnv('sonar-insta-vote'){ //global sonar server config
+                withSonarQubeEnv('sonar-pipilacha'){ //global sonar server config
                     sh "${sonarpath}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
                 }
             }

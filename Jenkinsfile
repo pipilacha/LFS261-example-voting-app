@@ -200,17 +200,17 @@ pipeline{
                 sh 'docker-compose up -d'
             }
         }
-    }
-    stage('Triggering ArgoCD deployment') {
-        agent any
-        environment {
-            def GIT_COMMIT = "${env.GIT_COMMIT}"
-        }
-        steps {
-            echo "Git commit ${GIT_COMMIT}"
-            echo "Trigerring argocd"
-             // passing variables to job deployment run by instavote-deploy repository Jenkinsfile
-            build job: 'deployment', parameters: [string(name: 'DOCKERTAG', value: GIT_COMMIT)]
+        stage('Triggering ArgoCD deployment') {
+            agent any
+            environment {
+                def GIT_COMMIT = "${env.GIT_COMMIT}"
+            }
+            steps {
+                echo "Git commit ${GIT_COMMIT}"
+                echo "Trigerring argocd"
+                // passing variables to job deployment run by instavote-deploy repository Jenkinsfile
+                build job: 'deployment', parameters: [string(name: 'DOCKERTAG', value: GIT_COMMIT)]
+            }
         }
     }
     post{

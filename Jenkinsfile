@@ -160,9 +160,11 @@ pipeline{
             environment {
                 sonarpath = tool 'SonarScanner' //sonar installation
             }
-            withSonarQubeEnv('sonar-insta-vote'){ //global sonar server config
+            steps {
                 echo 'Running Sonarqube Analysis'
-                sh "${sonarpath}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
+                withSonarQubeEnv('sonar-insta-vote'){ //global sonar server config
+                    sh "${sonarpath}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
+                }
             }
         }
         stage("Quality Gate") {

@@ -92,12 +92,7 @@ pipeline{
             when {
                 changeset '**/vote/**'
             }
-            agent {
-                docker {
-                    image 'python:2.7-alpine'
-                    args '-u root --privileged'
-                }
-            }
+            agent any
             steps{
                 echo 'Running integration tests on vote'
                 dir('vote'){

@@ -33,6 +33,7 @@ services:
       - back-tier
     environment:
       - ENV OPENSSL_CONF=/dev/null
+      - DB_PASS=${POSTGRE_PASS}
 
   worker:
     image: ${WORKER_IMAGE}
@@ -41,6 +42,8 @@ services:
       - db
     networks:
       - back-tier
+    environment:
+      - DB_PASS=${POSTGRE_PASS}
 
   redis:
     image: redis:alpine
@@ -53,7 +56,7 @@ services:
     networks:
       - back-tier
     environment: 
-      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_PASSWORD=${POSTGRE_PASS}
 
 volumes:
   db-data:

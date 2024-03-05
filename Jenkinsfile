@@ -88,6 +88,18 @@ pipeline{
                 }
             }
         }
+        stage('vote-integration-tests') {
+            when {
+                changeset '**/vote/**'
+            }
+            agent any
+            steps{
+                echo 'Running integration tests on vote'
+                dir('vote'){
+                    sh 'sh integration_test.sh'
+                }
+            }
+        }
         stage('vote-docker-package') {
             when {
                 changeset '**/vote/**'

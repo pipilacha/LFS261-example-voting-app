@@ -207,7 +207,7 @@ pipeline{
                 echo "Git commit ${env.GIT_COMMIT}"
                 echo "Trigerring argocd"
                 // passing variables to job deployment run by instavote-deploy repository Jenkinsfile
-                build job: 'deployment', parameters: [string(name: 'DOCKERTAG', value: ${env.BUILD_ID})]
+                build job: 'deployment', parameters: [string(name: 'DOCKERTAG', value: "${env.BUILD_ID}")]
             }
         }
     }

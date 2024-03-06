@@ -1,6 +1,6 @@
 pipeline{
     agent none
-    // tools{ maven 'maven 3.6.1' }
+    // tools{ maven 'maven 3.6.1' } 
     stages {
         stage('worker-build') {
             when { changeset "**/worker/**" }

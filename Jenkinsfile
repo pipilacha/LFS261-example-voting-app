@@ -200,9 +200,9 @@ pipeline{
         }
         stage('Triggering ArgoCD deployment') {
             agent any
-            when {
-                branch 'master'
-            }
+            // when {
+            //     branch 'master'
+            // }
             steps {
                 echo "Git commit ${env.GIT_COMMIT}"
                 echo "Trigerring argocd"

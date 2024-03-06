@@ -213,7 +213,7 @@ pipeline{
     }
     post{
         always{            
-            echo 'Worker multibranch pipeline completed'
+            echo 'Worker multibranch pipeline completed!'
         }
         failure{
             slackSend (message: "Build failed: ${env.JOB_NAME} ${BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")

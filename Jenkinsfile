@@ -1,8 +1,6 @@
 pipeline{
     agent none
-    // tools{
-    //     maven 'maven 3.6.1'
-    // }
+    // tools{ maven 'maven 3.6.1' }
     stages {
         stage('worker-build') {
             when { changeset "**/worker/**" }
@@ -200,10 +198,22 @@ pipeline{
                 sh 'docker-compose up -d'
             }
         }
+        stage('Triggering ArgoCD deployment') {
+            agent any
+            when {
+                 branch 'master'
+            }
+            steps {
+                echo "Git commit ${env.GIT_COMMIT}"
+                echo "Trigerring argocd"
+                // passing variables to job deployment run by instavote-deploy repository Jenkinsfile
+                build job: 'deployment', parameters: [string(name: 'DOCKERTAG', value: "v${env.BUILD_ID}")]
+            }
+        }
     }
     post{
         always{            
-            echo 'Worker multibranch pipeline completed'
+            echo 'Worker multibranch pipeline completed!'
         }
         failure{
             slackSend (message: "Build failed: ${env.JOB_NAME} ${BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")

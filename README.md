@@ -1,6 +1,8 @@
 [![Build Status](http://34.125.103.67:8080/buildStatus/icon?job=instavote%2Fworker-test&subject=worker-test )](http://34.125.103.67:8080/job/instavote/job/worker-test/)
 [![Build Status](http://34.125.103.67:8080/buildStatus/icon?job=instavote%2Fworker-build&subject=worker-build )](http://34.125.103.67:8080/job/instavote/job/worker-build/) 
 
+Jenkins is runnind in a GCP VM instance. Has one node configured (GCP VM instance) and it does not run jobs on the primary node. 
+
 ### CI
 Main branch is protected by two checks.
 * At least one review approved
@@ -13,7 +15,7 @@ Code is scanned by Sonar.
 Jenkins sends build result to Slack via the Slack plugin.
 
 ### CD
-The last stage of the master pipeline is to trigger ArgoCD. This stage modifies the lastest version in the [GitOps repo](https://github.com/pipilacha/instavote-deploy) Kubernetes declarative files. ArgoCD will pickup change and synchronize our current configuration to our new version. This is deployed to GCP Kubernetes cluster.
+The last stage of the master pipeline is to trigger ArgoCD. This stage modifies the lastest version in the [GitOps repo](https://github.com/pipilacha/instavote-deploy) Kubernetes declarative files. ArgoCD will pickup change and synchronize our current configuration to our new version. This is deployed to a GCP Kubernetes cluster.
 
 Example Voting App
 =========

@@ -15,7 +15,7 @@ Code is scanned by Sonar.
 Jenkins sends build result to Slack via the Slack plugin.
 
 ### CD
-The last stage of the master pipeline is to trigger ArgoCD. This stage modifies the lastest version in the [GitOps repo](https://github.com/pipilacha/instavote-deploy) Kubernetes declarative files. ArgoCD will pickup change and synchronize our current configuration to our new version. This is deployed to a GCP Kubernetes cluster.
+The last stage of the master pipeline is to trigger ArgoCD. This stage modifies the lastest version in the [GitOps repo](https://github.com/pipilacha/instavote-deploy) Kubernetes files. ArgoCD will pickup change and synchronize our current configuration to our new version. This is deployed to a GCP Kubernetes cluster.
 
 Example Voting App
 =========
